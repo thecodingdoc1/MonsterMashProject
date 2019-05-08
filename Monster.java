@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Monster {
@@ -6,16 +7,21 @@ public class Monster {
 	public Monster(String name, boolean isHuman) {
 		this.name = name;
 		this.isHuman = isHuman;
-		this.health = (int) (Math.random() * 100);
-		this.attack = (int) (Math.random() * 10);
+		int health;
+		int attack;
 		int maxXBoardPosition = BattleBoard.battleBoard.length - 1;
 		int maxYBoardPosition = BattleBoard.battleBoard[0].length - 1;
 		int randomNumX, randomNumY;
-		
+		do {
+			health = (int) (Math.random() * 200);
+			attack = (int) (Math.random() * 20);
+		} while(health <= 100 || attack <= 10);
+		this.health = health;
+		this.attack = attack;
 		do {
 			randomNumX = (int) (Math.random() * maxXBoardPosition);
 			randomNumY = (int) (Math.random() * maxYBoardPosition);
-		} while (BattleBoard.battleBoard[randomNumX][randomNumY] != '*');
+		} while (BattleBoard.battleBoard[randomNumX][randomNumY] != '*' );
 		
 		
 		this.xPosition = randomNumX;
@@ -95,8 +101,19 @@ public class Monster {
 		
 		while(isSpaceOccupied) {
 			int randMoveDirection = (int) (Math.random() * 4);
+			String direction;
+			
+			if(randMoveDirection == 0) {
+				direction = "North";
+			} else if(randMoveDirection == 1) {
+				direction = "East";
+			} else if(randMoveDirection == 2) {
+				direction = "South";
+			} else {
+				direction = "West";
+			}
 			int randMoveDistance = movement;
-			System.out.println(randMoveDistance + "  " + randMoveDirection);
+			System.out.println(listOfMonsters[arrayItemIndex].name + " has moved to the " + direction);
 			
 			BattleBoard.battleBoard[this.yPosition][this.xPosition]= '*';
 			if(randMoveDirection == 0) {//North
@@ -151,11 +168,17 @@ public class Monster {
 		int direction = 0;
 		
 		System.out.println( "What direction do you want to move your monster?");
-		System.out.println("Please indicate 1 for north, 2 for east, 3 for south, adn 4 for west: ");
+		do {
+			System.out.println("Please indicate 1 for north, 2 for east, 3 for south, and 4 for west: ");
+			try {
+				direction = s.nextInt();
 				
-		direction = s.nextInt();
-		System.out.println(direction);
-
+			} catch(InputMismatchException e) {
+				//System.out.println("Please indicate 1 for north, 2 for east, 3 for south, and 4 for west: ");
+				s.nextLine();
+			}
+		} while (direction <= 0 || direction >= 5);
+		
 		while(isSpaceOccupied) {
 			int moveDistance = 1;
 			
@@ -217,9 +240,12 @@ public class Monster {
 		int deadMonsterY = 0;
 		this.yPosition = oldY;
 		this.xPosition = oldX;
+		System.out.println("Health of monsters before attack: " + listOfMonsters[arrayItemIndex].name + ": " + listOfMonsters[arrayItemIndex].getHealth() + " and " + listOfMonsters[indexToCheck].name + ": " + listOfMonsters[indexToCheck].getHealth() );
 		listOfMonsters[indexToCheck].setHealthAfterAttack(listOfMonsters[arrayItemIndex].getAttack());
+		listOfMonsters[arrayItemIndex].setHealthAfterAttack(listOfMonsters[indexToCheck].getAttack());
 		listOfMonsters[arrayItemIndex].setDamage(listOfMonsters[arrayItemIndex].getAttack());
-		System.out.println("Attacking Monster: " + listOfMonsters[arrayItemIndex].getHealth() + "Defending Monster:  " + listOfMonsters[indexToCheck].getHealth() );
+		listOfMonsters[indexToCheck].setDamage(listOfMonsters[indexToCheck].getAttack());
+		System.out.println("Health after: "+ listOfMonsters[arrayItemIndex].name + ": " + listOfMonsters[arrayItemIndex].getHealth() + " and  " + listOfMonsters[indexToCheck].name + ": " + listOfMonsters[indexToCheck].getHealth() );
 		if(listOfMonsters[indexToCheck].alive == false) {
 			System.out.println(listOfMonsters[indexToCheck].name + " has been killed by " + listOfMonsters[arrayItemIndex].name + "!");
 			deadMonsterX = listOfMonsters[indexToCheck].xPosition;
@@ -229,9 +255,12 @@ public class Monster {
 			//infinate loop redraws board
 			//deletes both names 
 			//instant dies
+		} else if (listOfMonsters[indexToCheck].alive == false) {
+			System.out.println(listOfMonsters[indexToCheck].name + " has been killed by " + listOfMonsters[arrayItemIndex].name + "!");
+			deadMonsterX = listOfMonsters[indexToCheck].xPosition;
+			deadMonsterY = listOfMonsters[indexToCheck].yPosition;
+			BattleBoard.battleBoard[deadMonsterY][deadMonsterX]= '*';
+			BattleBoard.reDrawBoard();
 		}
-		
-		}
-	
-	
 	}
+}

@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.ArrayUtils;
-public class BattleBoard extends Monster {
+public class BattleBoard {
 	static Scanner s = new Scanner(System.in);
 	static int numPlayers = 0;
 	static char[][] battleBoard = new char[10][10];
@@ -48,17 +48,18 @@ public class BattleBoard extends Monster {
 		System.out.println("If you encounter another monster, they will fight each other.");
 		System.out.println("The last monster standing wins!!");
 		System.out.println("Right now, we have a limit of 4 monsters per game.");
-		
+		System.out.println("To begin, how many people will be playing?");
 		//runs endless loop when input char
 		do {
+			System.out.println("Please input a number 1 - 4.");
 			try {
-				System.out.println("To begin, how many people will be playing?");
-				s.nextLine();
 				numPlayers = s.nextInt();
 		} catch (InputMismatchException e) {
-			System.out.println("Please input a number 1 - 4.");
+			s.nextLine();
+		} catch(StringIndexOutOfBoundsException e ) {
+			s.hasNextLine();
 		}
-		} while(numPlayers > 4  || numPlayers  <= 0);
+		} while(numPlayers >= 4  || numPlayers  <= 0);
 		
 	
 		
@@ -122,10 +123,9 @@ public class BattleBoard extends Monster {
 		listOfMonsters[1] = player2;
 		listOfMonsters[2] = player3;
 		listOfMonsters[3] = player4;
-		while(Monster.numMonstersDead < 4) {
-		//reDrawBoard()
+		while(Monster.numMonstersDead < 3) {
+		//reDrawBoard();
 		 for (Monster m : listOfMonsters) {
-			 System.out.println(m.isHuman());
 			 int arrayItemIndex = ArrayUtils.indexOf(listOfMonsters, m);
 			 if (m.isAlive() && !m.isHuman()) {
 				 m.moveMonsterAuto(listOfMonsters, arrayItemIndex);
@@ -134,10 +134,11 @@ public class BattleBoard extends Monster {
 			 } else if(!m.isAlive()) {
 				 continue;
 			 }
+			 
 		 }
 		}
 		for (Monster m : listOfMonsters) {
-			if(!m.isAlive()) {
+			if(m.isAlive()) {
 			endgame(m, player1, player2, player3, player4);
 			}
 		}
@@ -157,43 +158,6 @@ public class BattleBoard extends Monster {
 
 	public static void main(String[] args) {
 		buildBattleBoard();
-		//start();
 		userInput();
-		
-		
-		// create attack and death method
-		// create win method
-		/* after the last turn and ther is only one winner, then print out the leaderboard wiht the stats of each monster, including the remaining health of the last monster
-		 * ask if they would like to play again, if so, rerun program.
-		 */
 	}
-	
-	
-	/* user input
-	 * ask the user for how many players, assign it to a variable of int
-	 * 	ensure not over a general number (say 4)
-	 * then have for loop that i <= player total
-	 * in each iteration, create a new monster, random attack, health,
-	 * give each monster the same movement
-	 * then ask for what the name of the player is (or monster)
-	 * ensure that the random number only assigns if given a certain value (no 100 hp, 90 attack monsters)
-	 * give the stats for each monster to the screen
-	 * ensure that if random generates and assigns a high health (700+) then only assign attack below 40 using while loop
-	 * each monster would then have a specific position
-	 * this starts a turn
-	 * then I could ask for user inpu in regards to movement 
-	 * do they want to move up, down, left, or right
-	 * error checking- ensure just those answers, ensure no monster already in the space
-	 * then move the monsters
-	 * check if a monster is next to them, if not, next players turn
-	 * if so, then attack the monster, reduce the other monsters health by the amount of attack
-	 * check that alive = true; then next players turn
-	 * at end of each players turn, report any attack, 
-	 * update each player with the current health they have at the start of their turn
-	 * then next round
-	 * same thing until one monster left
-	 * 
-	 * can later add random power ups that spawn on the map at specific rounds (replenish health, armor, bonus next attack)
-	 * 
-	 */
 }
