@@ -23,8 +23,11 @@ Simple text-based turn based game created with Java
 
 # Instructions for the game
 1: Indicate the number of human players (limited to 4)
+
 2: Type the name of each of the players
+
 3: Follow the direction for the requested direction of movement
+
 4: Last monster standing wins!
 
 # Feature requests or bug reporting
