@@ -12,9 +12,13 @@ Simple text-based turn based game created with Java
 
 # To Run The Game
 1: download the JAR file
+
 2: Open command prompt
+
 3: Navigate to the directory that is holding the JAR file
+
 4: type java -jar MonsterMash.jar
+
 5: Enjoy!
 
 # Instructions for the game
