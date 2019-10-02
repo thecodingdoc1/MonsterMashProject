@@ -7,9 +7,6 @@ Simple text-based turn based game created with Java
 - Exception handling
 - Command Line structure and function
 
-# Future of project
-- Incorporation of JavaFX
-
 # To Run The Game
 1: download the JAR file
 
