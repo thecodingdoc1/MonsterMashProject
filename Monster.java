@@ -5,10 +5,10 @@ public class Monster {
 	public Monster() {}
 
 	public Monster(String name, boolean isHuman) {
-		System.out.println("Testing this");
 		this.name = name;
 		this.isHuman = isHuman;
 		int health;
+		System.out.println("merge into merge branch");
 		int attack;
 		int maxXBoardPosition = BattleBoard.battleBoard.length - 1;
 		int maxYBoardPosition = BattleBoard.battleBoard[0].length - 1;
