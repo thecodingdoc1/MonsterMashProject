@@ -5,6 +5,7 @@ public class Monster {
 	public Monster() {}
 
 	public Monster(String name, boolean isHuman) {
+		System.out.println("Testing this");
 		this.name = name;
 		this.isHuman = isHuman;
 		int health;
