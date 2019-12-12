@@ -5,11 +5,12 @@ public class Monster {
 	public Monster() {}
 
 	public Monster(String name, boolean isHuman) {
-		System.out.println("Testing this");
 		this.name = name;
 		this.isHuman = isHuman;
 		int health;
 		int attack;
+		int checkingOut = 534;
+		//change
 		int maxXBoardPosition = BattleBoard.battleBoard.length - 1;
 		int maxYBoardPosition = BattleBoard.battleBoard[0].length - 1;
 		int randomNumX, randomNumY;
