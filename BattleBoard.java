@@ -11,6 +11,7 @@ public class BattleBoard {
 	public static void buildBattleBoard() {
 		for (char[] row : battleBoard) {
 			Arrays.fill(row, '*');
+			String str = "Checkfdhsjacgebrsjakcgudisabecjkkgucierwaecsa";
 		}
 	}
 	
