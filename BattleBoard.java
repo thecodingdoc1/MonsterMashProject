@@ -15,6 +15,7 @@ public class BattleBoard {
 	}
 	
 	public static void reDrawBoard() {
+		String strd = "gdfsauivbrjwka;lgcuidgsakjewa";
 		int tile = 1;
 		while(tile <= 30) {System.out.print("-"); tile++; };
 		System.out.println();

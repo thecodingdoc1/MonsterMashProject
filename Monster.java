@@ -9,6 +9,7 @@ public class Monster {
 		this.isHuman = isHuman;
 		int health;
 		int attack;
+		String strd = "fdshquo;cbjdsa";
 		int maxXBoardPosition = BattleBoard.battleBoard.length - 1;
 		int maxYBoardPosition = BattleBoard.battleBoard[0].length - 1;
 		int randomNumX, randomNumY;
