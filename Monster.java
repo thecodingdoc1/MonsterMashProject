@@ -2,6 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Monster {
+	BattleBoard board = new BattleBoard();
 	public Monster() {}
 
 	public Monster(String name, boolean isHuman) {
@@ -10,8 +11,8 @@ public class Monster {
 		int health;
 		System.out.println("merge into merge branch");
 		int attack;
-		int maxXBoardPosition = BattleBoard.battleBoard.length - 1;
-		int maxYBoardPosition = BattleBoard.battleBoard[0].length - 1;
+		int maxXBoardPosition = board.battleBoard.length - 1;
+		int maxYBoardPosition = board.battleBoard[0].length - 1;
 		int randomNumX, randomNumY;
 		do {
 			health = (int) (Math.random() * 200);
@@ -22,7 +23,7 @@ public class Monster {
 		do {
 			randomNumX = (int) (Math.random() * maxXBoardPosition);
 			randomNumY = (int) (Math.random() * maxYBoardPosition);
-		} while (BattleBoard.battleBoard[randomNumX][randomNumY] != '*' );
+		} while (board.battleBoard[randomNumX][randomNumY] != '*' );
 		
 		
 		this.xPosition = randomNumX;
@@ -30,7 +31,7 @@ public class Monster {
 		
 		this.nameChar1 = this.name.charAt(0);
 		
-		BattleBoard.battleBoard[this.yPosition][this.xPosition] = this.nameChar1;
+		board.battleBoard[this.yPosition][this.xPosition] = this.nameChar1;
 		numOfMonsters++;
 	}
 	
@@ -97,8 +98,8 @@ public class Monster {
 		int oldX = xPosition;
 		boolean isSpaceOccupied = true;
 	
-		int maxXBoardSpace = BattleBoard.battleBoard.length - 1;
-		int maxYBoardSpace = BattleBoard.battleBoard[0].length - 1;
+		int maxXBoardSpace = board.battleBoard.length - 1;
+		int maxYBoardSpace = board.battleBoard[0].length - 1;
 		
 		while(isSpaceOccupied) {
 			int randMoveDirection = (int) (Math.random() * 4);
@@ -116,7 +117,7 @@ public class Monster {
 			int randMoveDistance = movement;
 			System.out.println(listOfMonsters[arrayItemIndex].name + " has moved to the " + direction);
 			
-			BattleBoard.battleBoard[this.yPosition][this.xPosition]= '*';
+			board.battleBoard[this.yPosition][this.xPosition]= '*';
 			if(randMoveDirection == 0) {//North
 				if((this.yPosition - randMoveDistance) < 0) {
 					this.yPosition = 0;
@@ -156,16 +157,17 @@ public class Monster {
 				}
 			}
 		}// end of while loop
-		BattleBoard.battleBoard[this.yPosition][this.xPosition] = this.nameChar1;
-		BattleBoard.reDrawBoard();
+		
+		board.battleBoard[this.yPosition][this.xPosition] = this.nameChar1;
+		board.reDrawBoard();
 	}//end of moveMonster
 	
 	public void move(Monster[] listOfMonsters, int arrayItemIndex, Scanner s) {
 		int oldY = yPosition;
 		int oldX = xPosition;
 		boolean isSpaceOccupied = true;
-		int maxXBoardSpace = BattleBoard.battleBoard.length - 1;
-		int maxYBoardSpace = BattleBoard.battleBoard[0].length - 1;
+		int maxXBoardSpace = board.battleBoard.length - 1;
+		int maxYBoardSpace = board.battleBoard[0].length - 1;
 		int direction = 0;
 		
 		System.out.println( "What direction do you want to move your monster?");
@@ -183,7 +185,7 @@ public class Monster {
 		while(isSpaceOccupied) {
 			int moveDistance = 1;
 			
-			BattleBoard.battleBoard[this.yPosition][this.xPosition]= '*';
+			board.battleBoard[this.yPosition][this.xPosition]= '*';
 			if(direction == 1) {//North
 				if((this.yPosition - moveDistance) < 0) {
 					this.yPosition = 0;
@@ -222,8 +224,8 @@ public class Monster {
 				}
 			}
 		}// end of while loop
-		BattleBoard.battleBoard[this.yPosition][this.xPosition] = this.nameChar1;
-		BattleBoard.reDrawBoard();
+		board.battleBoard[this.yPosition][this.xPosition] = this.nameChar1;
+		board.reDrawBoard();
 	}//end of move
 
 	private boolean isSpaceFree(Monster[] listOfMonsters, int indexToCheck, int arrayItemIndex) {
@@ -251,8 +253,8 @@ public class Monster {
 			System.out.println(listOfMonsters[indexToCheck].name + " has been killed by " + listOfMonsters[arrayItemIndex].name + "!");
 			deadMonsterX = listOfMonsters[indexToCheck].xPosition;
 			deadMonsterY = listOfMonsters[indexToCheck].yPosition;
-			BattleBoard.battleBoard[deadMonsterY][deadMonsterX]= '*';
-			BattleBoard.reDrawBoard();
+			board.battleBoard[deadMonsterY][deadMonsterX]= '*';
+			board.reDrawBoard();
 			//infinate loop redraws board
 			//deletes both names 
 			//instant dies
@@ -260,8 +262,8 @@ public class Monster {
 			System.out.println(listOfMonsters[indexToCheck].name + " has been killed by " + listOfMonsters[arrayItemIndex].name + "!");
 			deadMonsterX = listOfMonsters[indexToCheck].xPosition;
 			deadMonsterY = listOfMonsters[indexToCheck].yPosition;
-			BattleBoard.battleBoard[deadMonsterY][deadMonsterX]= '*';
-			BattleBoard.reDrawBoard();
+			board.battleBoard[deadMonsterY][deadMonsterX]= '*';
+			board.reDrawBoard();
 		}
 	}
 }

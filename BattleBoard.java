@@ -3,18 +3,19 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.ArrayUtils;
+
 public class BattleBoard {
 	static Scanner s = new Scanner(System.in);
 	static int numPlayers = 0;
-	static char[][] battleBoard = new char[10][10];
+	char[][] battleBoard = new char[10][10];
 	
-	public static void buildBattleBoard() {
+	public void buildBattleBoard() {
 		for (char[] row : battleBoard) {
 			Arrays.fill(row, '*');
 		}
 	}
 	
-	public static void reDrawBoard() {
+	public void reDrawBoard() {
 		int tile = 1;
 		while(tile <= 30) {System.out.print("-"); tile++; };
 		System.out.println();
@@ -29,19 +30,21 @@ public class BattleBoard {
 		System.out.println();
 }
 	
-	public static void userInput() {
-		
+	public void userInput() {
+		//Revonfigure userInput to use userVO with name, stats, and things to save information
 		numPlayers = 0;
 		String player1Name = "Frank";
 		String player2Name = "Nessie";
 		String player3Name = "BigFoot";
 		String player4Name = "Drax";
 		
+		//Make this a property in userVO
 		boolean p1IsHuman = false;
 		boolean p2IsHuman = false;
 		boolean p3IsHuman = false;
 		boolean p4IsHuman = false;
 		
+		//Incorporate message util to display message instead of using SOUTs, make constants(property files)
 		System.out.println("Welcome to Monster Mash!");
 		System.out.println("Everyone is given a monster.");
 		System.out.println("Each turn, each player will be able to decide what direction they will move in.");
@@ -49,7 +52,11 @@ public class BattleBoard {
 		System.out.println("The last monster standing wins!!");
 		System.out.println("Right now, we have a limit of 4 monsters per game.");
 		System.out.println("To begin, how many people will be playing?");
-		//runs endless loop when input char
+
+		/*runs endless loop when input char
+		* Add ability to provide own name
+		*/
+
 		do {
 			System.out.println("Please input a number 1 - 4.");
 			try {
@@ -62,7 +69,9 @@ public class BattleBoard {
 		} while(numPlayers >= 4  || numPlayers  <= 0);
 		
 	
-		
+		/*Set up in other class to configure players
+		*	incorporate to display messages
+		*/
 		for (int i = 1; i <= numPlayers; i++) {
 			System.out.println("Player " + i + " what is the name of your monster?");
 			if (i == 1) {
@@ -98,11 +107,15 @@ public class BattleBoard {
 				
 		}
 		
+		//Move to set up 
 		Monster player1 = new Monster(player1Name, p1IsHuman);
 		Monster player2 = new Monster(player2Name, p2IsHuman);
 		Monster player3 = new Monster(player3Name, p3IsHuman);
 		Monster player4 = new Monster(player4Name, p4IsHuman);
 		
+		/* Incoporate messages
+		 *  Make sure that random attacks and health are competative
+		 */
 		System.out.println("Each monster has been given a random attack and health");
 		System.out.println("Players are:"); 
 		System.out.println("Player 1: Name: " + player1.name + " Attack: " + player1.getAttack() + " Health: " + player1.getHealth());
@@ -116,6 +129,7 @@ public class BattleBoard {
 		start(player1, player2, player3, player4);
 		s.close();
 	}
+
 	public static void start(Monster player1, Monster player2, Monster player3, Monster player4) {
 		Monster[] listOfMonsters = new Monster[4]; 
 		
@@ -156,8 +170,4 @@ public class BattleBoard {
 		System.out.println("Player " + player4.name + " Health: " + player4.getHealth() + " Damage: " + player4.getDamage());
 	}
 
-	public static void main(String[] args) {
-		buildBattleBoard();
-		userInput();
-	}
 }
